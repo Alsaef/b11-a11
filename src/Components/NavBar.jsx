@@ -1,11 +1,14 @@
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import Logo from '../assets/images/logo.png';
+import LogoTow from '../assets/images/footer-logo.png';
 import { AuthContext } from "../Provider/AuthProvider";
+import useTheme from "../hooks/useTheme";
+import { FaMoon, FaSun } from "react-icons/fa";
 const Navbar = () => {
   const {user,logOut} =useContext(AuthContext)
 
-
+  const { theme, toggleTheme } = useTheme();
   const menuItems = (
     <>
       <li><Link to="/">Home</Link></li>
@@ -39,7 +42,7 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost text-xl"><img src={Logo} width={100} alt="" /></Link>
+        <Link to="/" className="btn btn-ghost text-xl">{theme==='light'?<img src={Logo} width={100} alt="" />:<img src={LogoTow} width={100} alt=""/>}</Link>
       </div>
 
       {/* Navbar Center - Desktop */}
@@ -48,7 +51,7 @@ const Navbar = () => {
       </div>
 
       {/* Navbar End - Profile/Logout */}
-      <div className="navbar-end space-x-2">
+      <div className="navbar-end space-x-3">
         {user ? (
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
@@ -61,6 +64,10 @@ const Navbar = () => {
         ) : (
          <></>
         )}
+         <button onClick={toggleTheme} className="btn w-[100px] btn-outline rounded-full">
+      {theme === "dark" ? <FaSun className="text-yellow-400" /> : <FaMoon className="text-gray-800" />}
+      <span className="ml-2">{theme === "dark" ? "Light" : "Dark"}</span>
+    </button>
       </div>
     </div>
   );

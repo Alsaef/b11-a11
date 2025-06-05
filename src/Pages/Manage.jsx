@@ -21,7 +21,7 @@ const ManageEvents = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {events.map((event) => (
-              <div key={event._id} className="card bg-white shadow-md p-6 rounded-lg">
+              <div key={event._id} className="card  shadow-md p-6 rounded-lg">
                 <img src={event.thumbnail} alt={event.title} className="rounded-md h-48 w-full object-cover mb-4" />
                 <h3 className="text-xl font-semibold">{event.title}</h3>
                 <p className="text-sm text-gray-500">{event.eventType}</p>
