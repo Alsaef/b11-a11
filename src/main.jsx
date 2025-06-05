@@ -1,0 +1,80 @@
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+const queryClient = new QueryClient();
+
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import Root from './Root/Root';
+import Home from './Pages/Home';
+import Login from './Pages/Login';
+import Register from './Pages/Register';
+import AuthProvider from './Provider/AuthProvider';
+import { ToastContainer, toast } from 'react-toastify';
+import CreateEvent from './Pages/CreateEvent';
+import UpcomingEvents from './Pages/UpcomingEvents';
+import Private from './Private/Private';
+import ManageEvents from './Pages/Manage';
+import EventDetails from './Pages/EventDetails';
+import UpdateEvent from './Pages/UpdateEvent';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root></Root>,
+    children: [
+      {
+        path: '/',
+        element: <Home></Home>
+      },
+      {
+        path: '/create-event',
+        element: <Private><CreateEvent></CreateEvent></Private>
+      },
+      {
+        path: '/manage-events',
+        element: <Private><ManageEvents></ManageEvents></Private>
+      },
+      {
+        path: '/events/:id',
+        loader:({params})=>fetch(`http://localhost:3000/api/event/${params.id}`),
+        element: <Private><EventDetails></EventDetails></Private>
+      },
+      {
+        path: '/update-event/:id',
+        loader:({params})=>fetch(`http://localhost:3000/api/event/${params.id}`),
+        element: <Private><UpdateEvent></UpdateEvent></Private>
+      },
+      {
+        path: '/upcoming-events',
+        element: <UpcomingEvents></UpcomingEvents>
+      },
+      {
+        path: '/login',
+        element: <Login></Login>
+      },
+      {
+        path: '/register',
+        element: <Register></Register>
+      }
+    ]
+  },
+]);
+
+
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+      <RouterProvider router={router} />
+      <ToastContainer />
+    </AuthProvider>
+    </QueryClientProvider>
+
+  </StrictMode>,
+)
