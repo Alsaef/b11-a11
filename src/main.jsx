@@ -21,6 +21,7 @@ import Private from './Private/Private';
 import ManageEvents from './Pages/Manage';
 import EventDetails from './Pages/EventDetails';
 import UpdateEvent from './Pages/UpdateEvent';
+import MyJoinedEvents from './Pages/MyJoinedEvents';
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
       {
         path: '/upcoming-events',
         element: <UpcomingEvents></UpcomingEvents>
+      },
+      {
+        path: '/joined-events',
+        element: <Private><MyJoinedEvents></MyJoinedEvents></Private>
       },
       {
         path: '/login',

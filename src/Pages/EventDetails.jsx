@@ -1,11 +1,44 @@
 // pages/EventDetails.jsx
-import React from "react";
+import React, { useContext } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
-
+import { AuthContext } from "../Provider/AuthProvider";
+import { toast } from "react-toastify";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const EventDetails = () => {
-const event=useLoaderData()
+  const {user}=useContext(AuthContext)
+  const axiosSecure=useAxiosSecure()
+  const event = useLoaderData()
+ const handelJoin = async () => {
+    if (!user) {
+      toast.error("Please login first");
+      return;
+    }
 
+    const joinData = {
+      title: event.title,
+      description: event.description,
+      eventType: event.eventType,
+      thumbnail: event.thumbnail,
+      location: event.location,
+      eventDate: new Date(event.eventDate),
+      email: user.email,
+    };
+
+    try {
+      const res = await axiosSecure.post("/api/join-event", joinData);
+      if (res.data.result?.acknowledged===true) {
+        toast.success("Joined the event successfully!");
+       
+      } else {
+        toast.warning("Something went wrong.");
+       
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to join the event");
+    }
+  };
   return (
     <section className="min-h-screen py-10 px-4 bg-base-100">
       <div className="max-w-4xl mx-auto">
@@ -16,7 +49,7 @@ const event=useLoaderData()
         <p className="text-sm text-gray-600 mb-4">Location: {event.location}</p>
         <p>{event.description}</p>
         <div>
-            <button className="btn btn-primary w-full my-5">Join event</button>
+          <button onClick={handelJoin} className="btn btn-primary w-full my-5">Join event</button>
         </div>
       </div>
     </section>
