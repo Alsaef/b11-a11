@@ -20,7 +20,7 @@ const Register = () => {
     const isValidPassword = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password);
 
     if (!isValidPassword) {
-      alert("Password must have an uppercase, lowercase, and be at least 6 characters long.");
+      toast.error("Password must have an uppercase, lowercase, and be at least 6 characters long.");
       return;
     }
 
