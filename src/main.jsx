@@ -42,12 +42,12 @@ const router = createBrowserRouter([
       },
       {
         path: '/events/:id',
-        loader:({params})=>fetch(`https://server-11-helpy.vercel.app/api/event/${params.id}`),
+        loader:({params})=>fetch(`http://localhost:3000/api/event/${params.id}`),
         element: <Private><EventDetails></EventDetails></Private>
       },
       {
         path: '/update-event/:id',
-        loader:({params})=>fetch(`https://server-11-helpy.vercel.app/api/event/${params.id}`),
+        loader:({params})=>fetch(`http://localhost:3000/api/event/${params.id}`),
         element: <Private><UpdateEvent></UpdateEvent></Private>
       },
       {
