@@ -10,7 +10,7 @@ const useUpcomingEvents = (filterType, searchTerm) => {
     if (filterType !== "") params.eventType = filterType;
     if (searchTerm) params.search = searchTerm;
 
-    const res = await axiosSecure.get("/api/events", { params });
+    const res = await axiosSecure.get(`/api/events?eventType=${filterType}&search=${searchTerm}`);
     return res.data;
   };
 
