@@ -17,6 +17,11 @@ const EventCard = ({ event }) => (
         {format(new Date(event.eventDate), "PPP")}
       </p>
       <p className="flex items-center gap-1 text-sm opacity-70">
+        
+        {event.description?.slice(0,40)}.....
+        
+      </p>
+      <p className="flex items-center gap-1 text-sm opacity-70">
         <MapPin className="w-4 h-4" />
         {event.location}
       </p>
