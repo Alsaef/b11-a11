@@ -6,7 +6,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import useTheme from "../hooks/useTheme";
 import { FaMoon, FaSun } from "react-icons/fa";
 const Navbar = () => {
-  const {user,logOut} =useContext(AuthContext)
+  const { user, logOut } = useContext(AuthContext)
 
   const { theme, toggleTheme } = useTheme();
   const menuItems = (
@@ -14,20 +14,22 @@ const Navbar = () => {
       <li><Link to="/">Home</Link></li>
       <li><Link to="/upcoming-events">Upcoming Events</Link></li>
       {!user && <li><Link to="/login">Login</Link></li>}
+      {user && <>
+        <li><Link to="/create-event">Create Event</Link></li>
+        <li><Link to="/manage-events">Manage Events</Link></li>
+        <li><Link to="/joined-events">Joined Events</Link></li>
+      </>}
     </>
   );
 
   const profileDropdown = (
-    <ul className="menu menu-sm dropdown-content right-0 z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow">
-      <li><Link to="/create-event">Create Event</Link></li>
-      <li><Link to="/manage-events">Manage Events</Link></li>
-      <li><Link to="/joined-events">Joined Events</Link></li>
+    <ul className="menu menu-sm dropdown-content right-0 z-[1] mt-3 w-[150px] rounded-box bg-base-100 p-2 shadow">
       <li><button className="bg-red-500 text-white" onClick={logOut}>Logout</button></li>
     </ul>
   );
 
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar bg-base-100 shadow-sm fixed z-30 w-full top-0">
       {/* Navbar Start - Mobile */}
       <div className="navbar-start">
         <div className="dropdown">
@@ -42,7 +44,7 @@ const Navbar = () => {
             {menuItems}
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost text-xl">{theme==='light'?<img src={Logo} width={100} alt="" />:<img src={LogoTow} width={100} alt=""/>}</Link>
+        <Link to="/" className="btn btn-ghost text-xl">{theme === 'light' ? <img src={Logo} width={100} alt="" /> : <img src={LogoTow} width={100} alt="" />}</Link>
       </div>
 
       {/* Navbar Center - Desktop */}
@@ -56,18 +58,18 @@ const Navbar = () => {
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src={user?.photoURL} alt="Profile" title={user?.displayName}/>
+                <img src={user?.photoURL} alt="Profile" title={user?.displayName} />
               </div>
             </div>
             {profileDropdown}
           </div>
         ) : (
-         <></>
+          <></>
         )}
-         <button onClick={toggleTheme} className="btn w-[100px] btn-outline rounded-full">
-      {theme === "dark" ? <FaSun className="text-yellow-400" /> : <FaMoon className="text-gray-800" />}
-      <span className="ml-2">{theme === "dark" ? "Light" : "Dark"}</span>
-    </button>
+        <button onClick={toggleTheme} className="btn w-[100px] btn-outline rounded-full">
+          {theme === "dark" ? <FaSun className="text-yellow-400" /> : <FaMoon className="text-gray-800" />}
+          <span className="ml-2">{theme === "dark" ? "Light" : "Dark"}</span>
+        </button>
       </div>
     </div>
   );
