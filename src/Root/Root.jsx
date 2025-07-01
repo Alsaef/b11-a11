@@ -10,7 +10,7 @@ const Root = () => {
         <div>
             <Scroll></Scroll>
             <Navbar></Navbar>
-            <div className='min-h-screen'>
+            <div className='min-h-screen mt-10'>
                 <Outlet></Outlet>
             </div>
             <Footer></Footer>

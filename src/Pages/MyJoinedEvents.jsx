@@ -1,6 +1,7 @@
 import { FaLocationArrow } from "react-icons/fa";
 import Loading from "../Components/Loading";
 import useMyJoinEvent from "../hooks/useMyJoinEvent";
+import { Link } from "react-router-dom";
 
 const MyJoinedEvents = () => {
   const { events, isLoading } = useMyJoinEvent();
@@ -11,31 +12,40 @@ const MyJoinedEvents = () => {
     <section className="min-h-screen bg-base-100 py-10 px-4">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-8 text-primary">My Joined Events</h2>
- {!isLoading && events.length === 0 && <p className="text-center text-red-500 font-semibold text-2xl">No events found.</p>}
-        { 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {events.map((event) => (
-              <div
-                key={event._id}
-                className="bg-white shadow-md rounded-xl overflow-hidden border hover:shadow-xl transition-shadow duration-300"
-              >
-                <img
-                  src={event.thumbnail}
-                  alt={event.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold text-gray-800 mb-1">{event.title}</h3>
-                  <p className="text-sm text-gray-600 mb-2">{event.description}</p>
-                  <div className="flex items-center justify-between text-sm text-gray-500">
-                    <span className="flex items-center gap-2.5"><FaLocationArrow/> {event.location}</span>
-                    <span>{new Date(event.eventDate).toLocaleDateString()}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
+  {events.length === 0 ? (
+          <p className="text-center text-3xl text-red-400">You haven’t join any events yet.</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="table w-full table-zebra">
+              <thead>
+                <tr>
+                  <th>Thumbnail</th>
+                  <th>Title</th>
+                  <th>Type</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {events.map((event) => (
+                  <tr key={event._id}>
+                    <td>
+                      <img
+                        src={event.thumbnail}
+                        alt={event.title}
+                        className="w-16 h-16 object-cover rounded"
+                      />
+                    </td>
+                    <td>{event.title}</td>
+                    <td>{event.eventType}</td>
+                    <td>
+                      {new Date(event.eventDate).toLocaleString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-        }
+        )}
       </div>
     </section>
   );

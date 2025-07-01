@@ -17,6 +17,9 @@ const useMyEvent = () => {
     queryKey:['mt event',user?.email],
      queryFn: fetchMyEvents,
     enabled: !!user?.email,
+    staleTime: 0,
+    cacheTime: 0,
+    refetchOnWindowFocus: true
   })
 
   return { events: data, isLoading, error, refetch };

@@ -19,25 +19,47 @@ const ManageEvents = () => {
         {events.length === 0 ? (
           <p className="text-center text-3xl text-red-400">You haven’t created any events yet.</p>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {events.map((event) => (
-              <div key={event._id} className="card  shadow-md p-6 rounded-lg">
-                <img src={event.thumbnail} alt={event.title} className="rounded-md h-48 w-full object-cover mb-4" />
-                <h3 className="text-xl font-semibold">{event.title}</h3>
-                <p className="text-sm text-gray-500">{event.eventType}</p>
-                <p className="text-sm mt-2 mb-4">{event.description.slice(0, 100)}...</p>
-                <div className="flex justify-between items-center">
-                  <Link
-                    to={`/update-event/${event._id}`}
-                    className="btn btn-sm btn-primary"
-                  >
-                    Update
-                  </Link>
-                </div>
-              </div>
-            ))}
+          <div className="overflow-x-auto">
+            <table className="table w-full table-zebra">
+              <thead>
+                <tr>
+                  <th>Thumbnail</th>
+                  <th>Title</th>
+                  <th>Type</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {events.map((event) => (
+                  <tr key={event._id}>
+                    <td>
+                      <img
+                        src={event.thumbnail}
+                        alt={event.title}
+                        className="w-16 h-16 object-cover rounded"
+                      />
+                    </td>
+                    <td>{event.title}</td>
+                    <td>{event.eventType}</td>
+                    <td>
+                      {new Date(event.eventDate).toLocaleString()}
+                    </td>
+                    <td>
+                      <Link
+                        to={`/update-event/${event._id}`}
+                        className="btn btn-xs btn-primary"
+                      >
+                        Update
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
+
       </div>
     </section>
   );

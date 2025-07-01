@@ -12,7 +12,7 @@ const Navbar = () => {
   const menuItems = (
     <>
       <li><Link to="/">Home</Link></li>
-      <li><Link to="/upcoming-events">Upcoming Events</Link></li>
+      <li><Link to="/upcoming-events">All Upcoming Events</Link></li>
       {!user && <li><Link to="/login">Login</Link></li>}
       {user && <>
         <li><Link to="/create-event">Create Event</Link></li>

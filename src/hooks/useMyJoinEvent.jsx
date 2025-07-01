@@ -5,18 +5,21 @@ import useAxiosSecure from './useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 
 const useMyJoinEvent = () => {
- const axiosSecure = useAxiosSecure();
+  const axiosSecure = useAxiosSecure();
   const { user } = useContext(AuthContext);
 
-   const fetchMyEvents = async () => {
+  const fetchMyEvents = async () => {
     const res = await axiosSecure.get(`/api/joined-events?email=${user.email}`);
     return res.data;
   };
 
   const { data = [], isLoading, error, refetch } = useQuery({
-    queryKey:['mt event',user?.email],
-     queryFn: fetchMyEvents,
+    queryKey: ['mt event', user?.email],
+    queryFn: fetchMyEvents,
     enabled: !!user?.email,
+    staleTime: 0,
+    cacheTime: 0,
+    refetchOnWindowFocus: true
   })
 
   return { events: data, isLoading, error, refetch };
