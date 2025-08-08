@@ -8,7 +8,7 @@ const HighLight = () => {
         const [searchTerm, setSearchTerm] = useState("");
     const { events, isLoading } = useUpcomingEvents(filterType,searchTerm)
     return (
-        <div className='py-12'>
+        <div className='py-12 px-5'>
             <h2 className="text-3xl font-bold text-center my-10">🌟 Highlighted Events</h2>
             <div className='grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-3'>
                 {
